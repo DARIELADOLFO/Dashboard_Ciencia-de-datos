@@ -164,8 +164,7 @@ with col_titulo:
         "Dariel A. Peña",
         "Elvis R. Rosado", 
         "Yaridis Terrero",
-        "Junior Padilla",
-        "Alfonso"
+        "Alfonso Veras"
     ]
     
     # Crea 5 columnas para distribuir los participantes
