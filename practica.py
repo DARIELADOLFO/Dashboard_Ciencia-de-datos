@@ -7,21 +7,20 @@ import numpy as np
 # ================================
 # CONFIGURACIÓN DE LA PÁGINA
 # ================================
-st.set_page_config(page_title="Dashboard de Marketing",
+st.set_page_config(page_title="Dashboard de Marketing y Distribucion de Edades por Clientes.",
                    page_icon="📈",
                    layout="wide")
 
-# ================================
+
 # ENCABEZADO (LOGO, TÍTULO, PARTICIPANTES)
-# ================================
+
 col_logo, col_titulo, col_nombres = st.columns([1, 3, 1.5])
 
 with col_logo:
-    # IMPORTANTE: Asegúrate de tener un archivo 'logo.png' en tu repositorio
     try:
         st.image("logo.png", width=120)
     except Exception as e:
-        st.warning("No se encontró el logo. Sube un archivo 'logo.png' al repositorio.")
+        st.warning("Sube un archivo 'logo.png' al repositorio para mostrarlo.")
 
 with col_titulo:
     st.markdown("<h1 style='text-align: center;'>Análisis de Campaña de Marketing</h1>", unsafe_allow_html=True)
@@ -31,114 +30,150 @@ with col_nombres:
     <div style='text-align: right;'>
         <strong>Participantes:</strong><br>
         Dariel A. Peña<br>
-        Elvis R. Rosado
+        Elvis R. Rosado<br>
+        Yaridis Terrero<br>
+        Junior Padilla<br>
+        Alfonso 
     </div>
     """, unsafe_allow_html=True)
 
-# ================================
 # RESUMEN DEL DASHBOARD
-# ================================
+
 st.markdown("---")
 st.markdown("""
-Este dashboard presenta un análisis demográfico y de comportamiento de los clientes de una campaña de marketing. 
-El objetivo es identificar el público objetivo predominante y entender cómo factores como la edad, el estado civil y el género 
-influyen en los patrones de consumo.
+            Teoría y Fundamento del KPI: La edad es un factor clave en marketing porque define segmentos de consumo.<br>
+
+Este dashboard presenta un análisis demográfico y de comportamiento de los clientes. 
+**Usa los filtros en la barra lateral** para segmentar los datos y explorar los diferentes perfiles de consumidores.
 """)
 
-# ================================
+
 # CARGA Y PREPARACIÓN DE DATOS
-# ================================
-@st.cache_data # Usamos cache para no recargar los datos en cada interacción
+
+@st.cache_data
 def cargar_datos(path):
     df = pd.read_excel(path)
-    # Edad calculada
     df["Edad"] = 2025 - df["Year_Birth"]
-    # Gasto total
     df["GastoTotal"] = (
         df["MntWines"] + df["MntFruits"] + df["MntMeatProducts"] +
         df["MntFishProducts"] + df["MntSweetProducts"] + df["MntGoldProds"]
     )
-    # Estado civil (simplificado)
     df["EstadoCivil"] = df["Marital_Status"]
-    # Género simulado (M/F)
     np.random.seed(42)
     df["Genero"] = np.random.choice(["Hombre", "Mujer"], size=len(df))
-    # Rango de edad
+    # Convertir RangoEdad a tipo categórico para un orden correcto
     df["RangoEdad"] = pd.cut(df["Edad"], bins=[10, 20, 30, 40, 50, 60, 70, 80, 90, 100], right=False)
     return df
 
 df = cargar_datos("marketing_campaign.xlsx")
 
+
+# BARRA LATERAL DE FILTROS (SIDEBAR)
+
+st.sidebar.header("⚙️ Filtros de Segmentación")
+
+# --- Filtro por Estado Civil ---
+estados_civiles = sorted(df['EstadoCivil'].unique())
+estado_civil_seleccionado = st.sidebar.multiselect(
+    "Estado Civil",
+    options=estados_civiles,
+    default=estados_civiles
+)
+
+# --- Filtro por Rango de Edad ---
+rangos_edad = sorted(df['RangoEdad'].unique().astype(str))
+rango_edad_seleccionado_str = st.sidebar.multiselect(
+    "Rango de Edad",
+    options=rangos_edad,
+    default=rangos_edad
+)
+# Convertir de nuevo a tipo Intervalo para el filtrado
+rango_edad_seleccionado = [pd.Interval.from_str(r) for r in rango_edad_seleccionado_str]
+
+
+# --- Filtro por Género ---
+generos = df['Genero'].unique()
+genero_seleccionado = st.sidebar.multiselect(
+    "Género",
+    options=generos,
+    default=generos
+)
+
+# --- Aplicar filtros al DataFrame ---
+df_filtrado = df[
+    df['EstadoCivil'].isin(estado_civil_seleccionado) &
+    df['RangoEdad'].isin(rango_edad_seleccionado) &
+    df['Genero'].isin(genero_seleccionado)
+]
+
+# CUERPO PRINCIPAL DEL DASHBOARD
+
 st.markdown("---")
 
-# ================================
-# PRIMERA FILA DE GRÁFICOS
-# ================================
-col1, col2 = st.columns(2)
+# Mensaje de advertencia si no hay datos tras filtrar
+if df_filtrado.empty:
+    st.warning("⚠️ No hay datos disponibles para los filtros seleccionados. Por favor, amplía tu selección.")
+else:
+    # --- PRIMERA FILA DE GRÁFICOS ---
+    col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader("Distribución de Edades")
-    fig, ax = plt.subplots(figsize=(6, 4))
-    sns.histplot(df["Edad"], bins=20, kde=True, color="skyblue", ax=ax)
-    ax.set_xlabel("Edad")
-    ax.set_ylabel("Número de Clientes")
-    st.pyplot(fig)
-    st.caption("Histograma que muestra la frecuencia de clientes por cada rango de edad. La curva KDE suaviza la distribución.")
+    with col1:
+        st.subheader("Distribución de Edades")
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sns.histplot(df_filtrado["Edad"], bins=20, kde=True, color="skyblue", ax=ax)
+        ax.set_xlabel("Edad")
+        ax.set_ylabel("Número de Clientes")
+        st.pyplot(fig)
+        st.caption("Histograma de la frecuencia de clientes por edad para la selección actual.")
 
-with col2:
-    st.subheader("Edad por Estado Civil")
-    fig, ax = plt.subplots(figsize=(6, 4))
-    sns.boxplot(data=df, x="Edad", y="EstadoCivil", palette="Set2", ax=ax)
-    ax.set_xlabel("Edad")
-    ax.set_ylabel("Estado Civil")
-    st.pyplot(fig)
-    st.caption("Diagrama de caja que compara la distribución de edades para cada estado civil, mostrando medianas y rangos.")
+    with col2:
+        st.subheader("Edad por Estado Civil")
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sns.boxplot(data=df_filtrado, x="Edad", y="EstadoCivil", palette="Set2", ax=ax)
+        ax.set_xlabel("Edad")
+        ax.set_ylabel("Estado Civil")
+        st.pyplot(fig)
+        st.caption("Distribución de edades para cada estado civil en el segmento filtrado.")
 
-# ================================
-# SEGUNDA FILA DE GRÁFICOS
-# ================================
-col3, col4 = st.columns(2)
+    # --- SEGUNDA FILA DE GRÁFICOS ---
+    col3, col4 = st.columns(2)
 
-with col3:
-    st.subheader("Gasto Promedio por Edad")
-    gasto_por_rango = df.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
-    fig, ax = plt.subplots(figsize=(6, 4))
-    sns.barplot(data=gasto_por_rango, x="RangoEdad", y="GastoTotal", palette="coolwarm", ax=ax)
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
-    ax.set_xlabel("Rango de Edad")
-    ax.set_ylabel("Promedio de Gasto ($)")
-    st.pyplot(fig)
-    st.caption("Gráfico de barras que ilustra el gasto total promedio para diferentes grupos de edad.")
+    with col3:
+        st.subheader("Gasto Promedio por Edad")
+        gasto_por_rango = df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sns.barplot(data=gasto_por_rango, x="RangoEdad", y="GastoTotal", palette="coolwarm", ax=ax)
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
+        ax.set_xlabel("Rango de Edad")
+        ax.set_ylabel("Promedio de Gasto ($)")
+        st.pyplot(fig)
+        st.caption("Gasto total promedio para los diferentes grupos de edad seleccionados.")
 
-with col4:
-    st.subheader("Pirámide Poblacional")
-    pop = df.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
-    
-    # Asegurarse de que ambas columnas existan
-    if "Hombre" not in pop: pop["Hombre"] = 0
-    if "Mujer" not in pop: pop["Mujer"] = 0
+    with col4:
+        st.subheader("Pirámide Poblacional")
+        pop = df_filtrado.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
+        
+        if "Hombre" not in pop: pop["Hombre"] = 0
+        if "Mujer" not in pop: pop["Mujer"] = 0
+        pop["Hombre"] = -pop["Hombre"]
 
-    pop["Hombre"] = -pop["Hombre"] # Negativo para graficar a la izquierda
+        fig, ax = plt.subplots(figsize=(6, 4))
+        ax.barh(pop.index, pop["Hombre"], color="blue", label="Hombres")
+        ax.barh(pop.index, pop["Mujer"], color="pink", label="Mujeres")
+        ax.set_xlabel("Cantidad de Clientes")
+        ax.set_ylabel("Edad")
+        ax.legend()
+        st.pyplot(fig)
+        st.caption("Distribución de clientes por edad y género, según los filtros aplicados.")
 
-    fig, ax = plt.subplots(figsize=(6, 4))
-    ax.barh(pop.index, pop["Hombre"], color="blue", label="Hombres")
-    ax.barh(pop.index, pop["Mujer"], color="pink", label="Mujeres")
-    ax.set_xlabel("Cantidad de Clientes")
-    ax.set_ylabel("Edad")
-    ax.legend()
-    st.pyplot(fig)
-    st.caption("Pirámide que muestra la distribución de clientes por edad y género, facilitando la comparación visual.")
+    # --- STORYTELLING FINAL ---
+    st.markdown("---")
+    st.subheader("📈 Conclusiones y Storytelling")
+    st.markdown("""
+    1.  **Público Objetivo Principal:** La **Distribución de Edades** te muestra el rango de edad dominante del segmento que has filtrado.
+    2.  **Edad y Compromiso:** El gráfico de **Edad por Estado Civil** revela cómo varía la edad promedio según la situación sentimental del cliente.
+    3.  **Potencial de Compra:** El **Gasto Promedio** te dice qué generaciones de tu selección tienen mayor poder adquisitivo.
+    4.  **Estrategia de Género:** La **Pirámide Poblacional** es clave para visualizar la composición de género del grupo seleccionado.
 
-# ================================
-# STORYTELLING FINAL
-# ================================
-st.markdown("---")
-st.subheader("📈 Conclusiones y Storytelling")
-st.markdown("""
-1.  **Público Objetivo Principal:** La **Distribución de Edades** nos muestra claramente cuál es el rango de edad dominante, permitiendo enfocar las campañas de marketing.
-2.  **Edad y Compromiso:** El gráfico de **Edad por Estado Civil** revela cómo la edad promedio varía según la situación sentimental del cliente, lo que puede influir en el tipo de productos que les interesan.
-3.  **Potencial de Compra:** El **Gasto Promedio** nos dice qué generaciones tienen mayor poder adquisitivo o disposición a gastar, ayudando a dirigir las ofertas más valiosas.
-4.  **Estrategia de Género:** La **Pirámide Poblacional** es clave para diseñar campañas con mensajes y productos diferenciados para hombres y mujeres.
-
-👉 **En resumen, este dashboard ofrece un mapa claro para orientar estrategias de marketing personalizadas, optimizando recursos y maximizando el impacto.**
-""")
+    👉 **Usa los filtros para descubrir insights específicos de cada segmento y tomar decisiones de marketing más informadas.**
+    """)
