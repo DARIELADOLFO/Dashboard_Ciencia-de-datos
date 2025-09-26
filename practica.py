@@ -7,13 +7,13 @@ import numpy as np
 # ================================
 # CONFIGURACIÓN DE LA PÁGINA
 # ================================
-st.set_page_config(page_title="Dashboard de Marketing y Distribucion de Edades por Clientes.",
+st.set_page_config(page_title="Dashboard de Marketing",
                    page_icon="📈",
                    layout="wide")
 
-
+# ================================
 # ENCABEZADO (LOGO, TÍTULO, PARTICIPANTES)
-
+# ================================
 col_logo, col_titulo, col_nombres = st.columns([1, 3, 1.5])
 
 with col_logo:
@@ -33,20 +33,20 @@ with col_nombres:
         Elvis R. Rosado<br>
         Yaridis Terrero<br>
         Junior Padilla<br>
-        Alfonso 
+        Alfonso
     </div>
     """, unsafe_allow_html=True)
 
+# ================================
 # RESUMEN DEL DASHBOARD
-
+# ================================
 st.markdown("---")
 st.markdown("""
-            Teoría y Fundamento del KPI: La edad es un factor clave en marketing porque define segmentos de consumo.<br>
+Teoría y Fundamento del KPI: La edad es un factor clave en marketing porque define segmentos de consumo.<br>
 
 Este dashboard presenta un análisis demográfico y de comportamiento de los clientes. 
-**Usa los filtros en la barra lateral** para segmentar los datos y explorar los diferentes perfiles de consumidores.
+*Usa los filtros en la barra lateral* para segmentar los datos y explorar los diferentes perfiles de consumidores.
 """)
-
 
 # CARGA Y PREPARACIÓN DE DATOS
 
@@ -61,7 +61,6 @@ def cargar_datos(path):
     df["EstadoCivil"] = df["Marital_Status"]
     np.random.seed(42)
     df["Genero"] = np.random.choice(["Hombre", "Mujer"], size=len(df))
-    # Convertir RangoEdad a tipo categórico para un orden correcto
     df["RangoEdad"] = pd.cut(df["Edad"], bins=[10, 20, 30, 40, 50, 60, 70, 80, 90, 100], right=False)
     return df
 
@@ -80,16 +79,13 @@ estado_civil_seleccionado = st.sidebar.multiselect(
     default=estados_civiles
 )
 
-# --- Filtro por Rango de Edad ---
-rangos_edad = sorted(df['RangoEdad'].unique().astype(str))
-rango_edad_seleccionado_str = st.sidebar.multiselect(
+# --- Filtro por Rango de Edad (CORREGIDO) ---
+rangos_edad_opciones = sorted(df['RangoEdad'].astype(str).unique())
+rango_edad_seleccionado = st.sidebar.multiselect(
     "Rango de Edad",
-    options=rangos_edad,
-    default=rangos_edad
+    options=rangos_edad_opciones,
+    default=rangos_edad_opciones
 )
-# Convertir de nuevo a tipo Intervalo para el filtrado
-rango_edad_seleccionado = [pd.Interval.from_str(r) for r in rango_edad_seleccionado_str]
-
 
 # --- Filtro por Género ---
 generos = df['Genero'].unique()
@@ -99,18 +95,19 @@ genero_seleccionado = st.sidebar.multiselect(
     default=generos
 )
 
-# --- Aplicar filtros al DataFrame ---
+# --- Aplicar filtros al DataFrame (CORREGIDO) ---
 df_filtrado = df[
     df['EstadoCivil'].isin(estado_civil_seleccionado) &
-    df['RangoEdad'].isin(rango_edad_seleccionado) &
+    df['RangoEdad'].astype(str).isin(rango_edad_seleccionado) & # <-- La corrección se aplica aquí
     df['Genero'].isin(genero_seleccionado)
 ]
+
+
 
 # CUERPO PRINCIPAL DEL DASHBOARD
 
 st.markdown("---")
 
-# Mensaje de advertencia si no hay datos tras filtrar
 if df_filtrado.empty:
     st.warning("⚠️ No hay datos disponibles para los filtros seleccionados. Por favor, amplía tu selección.")
 else:
@@ -140,7 +137,9 @@ else:
 
     with col3:
         st.subheader("Gasto Promedio por Edad")
+        # Aseguramos que el groupby use la columna original para mantener el orden
         gasto_por_rango = df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
+        gasto_por_rango['RangoEdad'] = gasto_por_rango['RangoEdad'].astype(str) # Convertir a string para graficar
         fig, ax = plt.subplots(figsize=(6, 4))
         sns.barplot(data=gasto_por_rango, x="RangoEdad", y="GastoTotal", palette="coolwarm", ax=ax)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
