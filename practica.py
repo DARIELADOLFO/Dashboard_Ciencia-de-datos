@@ -12,15 +12,15 @@ st.set_page_config(page_title="Grupo 1 – Distribución de Edades de los Client
 
 st.title("Grupo 1 – Distribución de Edades de los Clientes")
 st.markdown("""
-**Teoría y Fundamento del KPI:**  
-La edad es un factor clave en marketing porque define segmentos de consumo.  
+**Teoría y Fundamento del KPI:** La edad es un factor clave en marketing porque define segmentos de consumo.  
 Un análisis de la distribución de edades nos permite identificar el público objetivo predominante y ajustar estrategias de comunicación.
 """)
 
 # ================================
-# CARGA DE DATOS
+# CARGA DE DATOS (¡LÍNEA CORREGIDA!)
 # ================================
-file_path = r"C:\Users\darie\Downloads\CIENCIA DE DATOS\CARRERA DATA SCIENCE\STREAMLIT PRACTICA\marketing_campaign.xlsx"
+# Se asume que 'marketing_campaign.xlsx' está en el mismo directorio del repositorio
+file_path = "marketing_campaign.xlsx"
 df = pd.read_excel(file_path)
 
 # ================================
@@ -45,14 +45,14 @@ df["Genero"] = np.random.choice(["M", "F"], size=len(df))
 # ================================
 # LAYOUT DE COLUMNAS
 # ================================
-col1, col2 = st.columns([2,1])
+col1, col2 = st.columns([2, 1])
 
 # ================================
 # HISTOGRAMA PRINCIPAL
 # ================================
 with col1:
     st.subheader("Distribución de Edades")
-    fig, ax = plt.subplots(figsize=(8,5))
+    fig, ax = plt.subplots(figsize=(8, 5))
     sns.histplot(df["Edad"], bins=20, kde=False, color="skyblue", ax=ax)
     ax.set_xlabel("Edad")
     ax.set_ylabel("Número de clientes")
@@ -68,7 +68,7 @@ with col1:
 # ================================
 with col2:
     st.subheader("Edad según Estado Civil")
-    fig, ax = plt.subplots(figsize=(5,4))
+    fig, ax = plt.subplots(figsize=(5, 4))
     sns.boxplot(data=df, x="EstadoCivil", y="Edad", palette="Set2", ax=ax)
     st.pyplot(fig)
 
@@ -76,10 +76,10 @@ with col2:
 # PROMEDIO DE GASTO POR RANGO DE EDAD
 # ================================
 st.subheader("Promedio de Gasto por Rango de Edad")
-df["RangoEdad"] = pd.cut(df["Edad"], bins=[10,20,30,40,50,60,70,80,90,100], right=False)
+df["RangoEdad"] = pd.cut(df["Edad"], bins=[10, 20, 30, 40, 50, 60, 70, 80, 90, 100], right=False)
 gasto_por_rango = df.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
 
-fig, ax = plt.subplots(figsize=(10,5))
+fig, ax = plt.subplots(figsize=(10, 5))
 sns.barplot(data=gasto_por_rango, x="RangoEdad", y="GastoTotal", palette="coolwarm", ax=ax)
 ax.set_ylabel("Promedio de Gasto")
 st.pyplot(fig)
@@ -94,7 +94,7 @@ pop = df.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
 pop["M"] = -pop.get("M", 0)
 pop["F"] = pop.get("F", 0)
 
-fig, ax = plt.subplots(figsize=(8,6))
+fig, ax = plt.subplots(figsize=(8, 6))
 ax.barh(pop.index, pop["M"], color="blue", label="Hombres")
 ax.barh(pop.index, pop["F"], color="pink", label="Mujeres")
 ax.set_xlabel("Cantidad de Clientes")
@@ -114,4 +114,3 @@ st.markdown("""
 
 👉 Esto ofrece un **mapa claro para orientar estrategias de marketing personalizadas**, optimizando recursos y maximizando impacto.
 """)
-
