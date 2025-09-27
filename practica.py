@@ -11,9 +11,9 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import time
 
-# ================================
+
 # CONFIGURACIÓN DE LA PÁGINA
-# ================================
+
 # Configura las propiedades de la página de Streamlit
 st.set_page_config(
     page_title="📊 Dashboard de Marketing | Insights Visuales",  # Título de la pestaña del navegador
@@ -22,9 +22,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"  # Barra lateral expandida por defecto
 )
 
-# ================================
+
 # ESTILOS CSS PERSONALIZADOS
-# ================================
+#
 # Aplica estilos CSS para el diseño dark mode y mejorar la experiencia de usuario
 st.markdown("""
 <style>
@@ -137,9 +137,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ================================
+
 # ENCABEZADO (LOGO, TÍTULO, PARTICIPANTES)
-# ================================
+
 # Crea tres columnas para organizar el encabezado
 col_logo, col_titulo, col_nombres = st.columns([1, 3, 1.5])
 
@@ -164,6 +164,7 @@ with col_titulo:
         "Dariel A. Peña",
         "Elvis R. Rosado", 
         "Yaridis Terrero",
+        "Arismendy J. Padilla",
         "Alfonso Veras"
     ]
     
@@ -231,9 +232,9 @@ def cargar_datos(path):
 # Carga los datos del archivo
 df = cargar_datos("marketing_campaign.xlsx")
 
-# ================================
-# BARRA LATERAL DE FILTROS (SIDEBAR)
-# ================================
+
+# BARRA LATERAL DE FILTROS
+
 # Contenido de la barra lateral
 with st.sidebar:
     # Título de los filtros
@@ -309,7 +310,7 @@ with col2:
 with col3:
     st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
     st.metric(
-        label="🎂 Edad Promedio", 
+        label=" Edad Promedio", 
         value=f"{df_filtrado['Edad'].mean():.1f} años",
         delta=f"{df_filtrado['Edad'].std():.1f} años std"
     )
@@ -326,9 +327,9 @@ with col4:
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ================================
+
 # CUERPO PRINCIPAL DEL DASHBOARD
-# ================================
+
 # Línea divisoria
 st.markdown("---")
 
@@ -490,9 +491,9 @@ else:
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # ================================
+  
     # STORYTELLING FINAL
-    # ================================
+  
     st.markdown("---")
     st.markdown("<h3 style='color: #58a6ff;'>📈 Insights y Recomendaciones Estratégicas</h3>", unsafe_allow_html=True)
     
