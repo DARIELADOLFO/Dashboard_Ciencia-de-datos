@@ -190,9 +190,9 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ================================
+
 # CARGA Y PREPARACIÓN DE DATOS
-# ================================
+
 # Función para cargar y preparar los datos con cache
 @st.cache_data
 def cargar_datos(path):
@@ -277,9 +277,8 @@ df_filtrado = df[
     df['Genero'].isin(genero_seleccionado)
 ]
 
-# ================================
 # MÉTRICAS PRINCIPALES
-# ================================
+
 # Título de las métricas clave
 st.markdown("### 📊 Métricas Clave del Segmento Seleccionado")
 
@@ -500,16 +499,36 @@ else:
     # Columnas para insights
     col_insights1, col_insights2 = st.columns(2)
     
-    # Insights izquierdos
-    with col_insights1:
-        st.markdown("""
-        <div class='insight-box'>
-            <h4>🎯 Público Objetivo Principal</h4>
-            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
-        </div>
-        """.format(df_filtrado['Edad'].describe().iloc[2]), unsafe_allow_html=True)
-        
-        st.markdown("""
+   # Insights izquierdos
+with col_insights1:
+    # Primero, calcula el rango de edad más común del dataframe filtrado
+    if not df_filtrado.empty:
+        # .mode() encuentra el valor más frecuente. [0] selecciona el primero si hay empates.
+        rango_mas_comun = df_filtrado['RangoEdad'].mode()[0]
+    else:
+        # Asigna un valor por defecto si no hay datos
+        rango_mas_comun = "N/A"
+
+    # Ahora, inserta el resultado correcto en el texto
+    st.markdown("""
+    <div class='insight-box'>
+        <h4>🎯 Público Objetivo Principal</h4>
+        <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes en el rango de <strong>{}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
+    </div>
+    """.format(rango_mas_comun), unsafe_allow_html=True)
+
+    # El resto de tu código para el segundo insight sigue aquí...
+    st.markdown("""
+    <div class='insight-box'>
+        <h4>💰 Potencial de Compra</h4>
+        <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
+    </div>
+    """.format(
+        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
+        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
+    ), unsafe_allow_html=True)
+    
+    st.markdown("""
         <div class='insight-box'>
             <h4>💰 Potencial de Compra</h4>
             <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
