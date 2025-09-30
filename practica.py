@@ -532,16 +532,6 @@ st.markdown("""
         df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
     ), unsafe_allow_html=True)
     
-st.markdown("""
-        <div class='insight-box'>
-            <h4>💰 Potencial de Compra</h4>
-            <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
-        </div>
-        """.format(
-            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
-            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
-        ), unsafe_allow_html=True)
-
     # Insights derechos
 with col_insights2:
         st.markdown("""
