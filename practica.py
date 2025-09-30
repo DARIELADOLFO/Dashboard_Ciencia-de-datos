@@ -49,27 +49,27 @@ st.markdown("""
     }
     
     .stMetric {
-        background-color: #161b22 !important;  # Fondo oscuro para métricas
+        background-color: #ffffff !important;  # Fondo oscuro para métricas
         border-radius: 10px;  # Bordes redondeados
         padding: 15px;  # Espaciado interno
         border: 1px solid #30363d;  # Borde sutil
     }
     
     .stSelectbox, .stMultiSelect {
-        background-color: #161b22 !important;  # Fondo oscuro para selectores
+        background-color: #ffffff !important;  # Fondo oscuro para selectores
         border: 1px solid #30363d !important;  # Borde sutil
         border-radius: 8px;  # Bordes redondeados
         color: #e6edf3 !important;  # Color de texto claro
     }
     
     .stSlider {
-        background-color: #161b22 !important;  # Fondo oscuro para sliders
+        background-color: #ffffff !important;  # Fondo oscuro para sliders
         border-radius: 8px;  # Bordes redondeados
         padding: 10px;  # Espaciado interno
     }
     
     .sidebar .sidebar-content {
-        background-color: #161b22 !important;  # Fondo oscuro para barra lateral
+        background-color: #ffffff !important;  # Fondo oscuro para barra lateral
     }
     
     .block-container {
@@ -78,7 +78,7 @@ st.markdown("""
     }
     
     .stButton > button {
-        background-color: #1f6feb !important;  # Color azul para botones
+        background-color: #ffffff !important;  # Color azul para botones
         color: white !important;  # Texto blanco en botones
         border: none !important;  # Sin borde
         border-radius: 6px !important;  # Bordes redondeados
@@ -87,7 +87,7 @@ st.markdown("""
     }
     
     .stButton > button:hover {
-        background-color: #388bfd !important;  # Color más claro al pasar el mouse
+        background-color: #ffffff !important;  # Color más claro al pasar el mouse
     }
     
     .metric-card {
@@ -99,7 +99,7 @@ st.markdown("""
     }
     
     .insight-box {
-        background-color: #161b22;  # Fondo oscuro para cajas de insights
+        background-color: #ffffff;  # Fondo oscuro para cajas de insights
         border-left: 4px solid #58a6ff;  # Borde izquierdo azul
         padding: 15px;  # Espaciado interno
         border-radius: 0 8px 8px 0;  # Bordes redondeados
@@ -107,7 +107,7 @@ st.markdown("""
     }
     
     .chart-container {
-        background-color: #161b22;  # Fondo oscuro para contenedores de gráficos
+        background-color: #ffffff;  # Fondo oscuro para contenedores de gráficos
         border-radius: 12px;  # Bordes redondeados
         padding: 20px;  # Espaciado interno
         border: 1px solid #30363d;  # Borde sutil
@@ -123,7 +123,7 @@ st.markdown("""
     }
     
     .participant-card {
-        background-color: #161b22;  # Fondo oscuro para tarjetas de participantes
+        background-color: #ffffff;  # Fondo oscuro para tarjetas de participantes
         border-radius: 10px;  # Bordes redondeados
         padding: 15px;  # Espaciado interno
         border: 1px solid #30363d;  # Borde sutil
@@ -512,7 +512,7 @@ with col_insights1:
         st.markdown("""
         <div class='insight-box'>
             <h4>🎯 Público Objetivo Principal</h4>
-            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{:.2f}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
+            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{:.2f}</strong> años, lo que sugiere un enfoque en adultos de avanzada edad, con potencial de compra moderado a alto.</p>
         </div>
         """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
 
