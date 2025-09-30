@@ -40,7 +40,7 @@ st.markdown("""
     }
     
     .stApp {
-        background-color: #0d1117;  # Fondo de la aplicación
+        background-color: #ffffff;  # Fondo de la aplicación
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -512,7 +512,7 @@ with col_insights1:
         st.markdown("""
         <div class='insight-box'>
             <h4>🎯 Público Objetivo Principal</h4>
-            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
+            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{:.2f}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
         </div>
         """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
 
