@@ -534,7 +534,7 @@ with col_insights2:
     st.markdown("""
         <div class='insight-box'>
             <h4>👥 Composición Demográfica</h4>
-            <p>El género dominante es <strong>{}</strong> con {} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
+           <p>El género dominante es <strong>{}</strong> con {:,} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
         </div>
         """.format(
             df_filtrado['Genero'].mode()[0],
@@ -562,4 +562,5 @@ st.markdown("""
 # FOOTER - Pie de página
 st.markdown("---")
 st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
+
 
