@@ -35,7 +35,7 @@ st.markdown("""
     }
     
     .main {
-        background-color: #0d1117;  # Fondo oscuro principal
+        background-color: #ffffff;  # Fondo oscuro principal
         color: #e6edf3;  # Color de texto claro
     }
     
@@ -490,16 +490,16 @@ else:
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-  
+
     # STORYTELLING FINAL
-  
+
     st.markdown("---")
     st.markdown("<h3 style='color: #58a6ff;'>📈 Insights y Recomendaciones Estratégicas</h3>", unsafe_allow_html=True)
     
     # Columnas para insights
     col_insights1, col_insights2 = st.columns(2)
     
-   # Insights izquierdos
+# Insights izquierdos
 with col_insights1:
     # Primero, calcula el rango de edad más común del dataframe filtrado
     if not df_filtrado.empty:
@@ -508,33 +508,34 @@ with col_insights1:
     else:
         # Asigna un valor por defecto si no hay datos
         rango_mas_comun = "N/A"
+with col_insights1:
+    # 🎯 Público Objetivo Principal
+    edad_min = int(df_filtrado['Edad'].min())
+    edad_max = int(df_filtrado['Edad'].max())
 
-    # Ahora, inserta el resultado correcto en el texto
-edad_min = int(df_filtrado['Edad'].min())
-edad_max = int(df_filtrado['Edad'].max())
-
-st.markdown(f"""
-<div class='insight-box'>
-    <h4>🎯 Público Objetivo Principal</h4>
-    <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre 
-    <strong>{edad_min} y {edad_max} años</strong>, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
-</div>
-""", unsafe_allow_html=True)
-
-    # El resto de tu código para el segundo insight sigue aquí...
-st.markdown("""
+    st.markdown(f"""
     <div class='insight-box'>
-        <h4>💰 Potencial de Compra</h4>
-        <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
+        <h4>🎯 Público Objetivo Principal</h4>
+        <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre 
+        <strong>{edad_min} y {edad_max} años</strong>, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
     </div>
-    """.format(
-        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
-        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
-    ), unsafe_allow_html=True)
-    
-    # Insights derechos
+    """, unsafe_allow_html=True)
+
+    # 💰 Potencial de Compra
+    st.markdown("""
+        <div class='insight-box'>
+            <h4>💰 Potencial de Compra</h4>
+            <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
+        </div>
+        """.format(
+            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
+            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
+        ), unsafe_allow_html=True)
+
+# Insights derechos (se renderizarán en la segunda columna)
 with col_insights2:
-        st.markdown("""
+    # 👥 Composición Demográfica
+    st.markdown("""
         <div class='insight-box'>
             <h4>👥 Composición Demográfica</h4>
             <p>El género dominante es <strong>{}</strong> con {} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
@@ -544,14 +545,16 @@ with col_insights2:
             df_filtrado['Genero'].value_counts().iloc[0]
         ), unsafe_allow_html=True)
         
-        st.markdown("""
+    # 💍 Estado Civil y Compromiso
+    st.markdown("""
         <div class='insight-box'>
             <h4>💍 Estado Civil y Compromiso</h4>
             <p>El estado civil más común es <strong>{}</strong>, sugiriendo que las campañas familiares o de pareja podrían ser particularmente efectivas para este segmento.</p>
         </div>
         """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
+# --- FIN DE LA ESTRUCTURA DE DOS COLUMNAS PARA INSIGHTS ---
 
-    # Recomendaciones estratégicas
+# Recomendaciones estratégicas (Esto seguirá ocupando el ancho completo)
 st.markdown("""
     <div style='background-color: #161b22; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
         <h4>💡 Estrategia Recomendada</h4>
@@ -562,4 +565,4 @@ st.markdown("""
 
 # FOOTER - Pie de página
 st.markdown("---")
-st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
+st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
