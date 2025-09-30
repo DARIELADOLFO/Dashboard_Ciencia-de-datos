@@ -544,7 +544,7 @@ with col_insights2:
     """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
 
 # Recomendaciones estratégicas
-st.markdown("""
+    st.markdown("""
 <div style='background-color: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
     <h4>💡 Estrategia Recomendada</h4>
     <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
@@ -553,7 +553,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # FOOTER
-st.markdown("---")
-st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis Grupo
+    st.markdown("---")
+    st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis Grupo
+
 
 
