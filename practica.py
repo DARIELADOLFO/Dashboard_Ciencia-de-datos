@@ -367,206 +367,193 @@ st.plotly_chart(fig, use_container_width=True)
 st.caption("📊 Histograma mostrando la frecuencia de clientes por edad")
 st.markdown("</div>", unsafe_allow_html=True)
 
-
-    # Gráfico 2: Edad por Estado Civil
-    with col2:
-        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-        st.subheader("💍 Edad por Estado Civil")
-        
-        # Box plot interactivo
-        fig = px.box(
-            df_filtrado, 
-            x="EstadoCivil", 
-            y="Edad",
-            title="Distribución de Edades por Estado Civil",
-            color="EstadoCivil",
-            color_discrete_sequence=px.colors.qualitative.Set2
-        )
-        fig.update_layout(
-            plot_bgcolor='#161b22',
-            paper_bgcolor='#161b22',
-            font_color='#e6edf3',
-            title_font_size=16,
-            title_x=0.5,
-            showlegend=False
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        st.caption("📦 Diagrama de cajas mostrando la distribución de edades por estado civil")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    # SEGUNDA FILA DE GRÁFICOS
-    col3, col4 = st.columns(2)
-
-    # Gráfico 3: Gasto Promedio por Rango de Edad
-    with col3:
-        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-        st.subheader("💸 Gasto Promedio por Rango de Edad")
-        
-        # Agrupa datos por rango de edad para calcular gasto promedio
-        gasto_por_rango = df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
-        gasto_por_rango['RangoEdad'] = gasto_por_rango['RangoEdad'].astype(str)
-        
-        # Gráfico de barras con color progresivo
-        fig = px.bar(
-            gasto_por_rango,
-            x='RangoEdad',
-            y='GastoTotal',
-            title='Gasto Total Promedio por Rango de Edad',
-            color='GastoTotal',
-            color_continuous_scale='Blues'
-        )
-        fig.update_layout(
-            plot_bgcolor='#161b22',
-            paper_bgcolor='#161b22',
-            font_color='#e6edf3',
-            title_font_size=16,
-            title_x=0.5,
-            xaxis_tickangle=-45
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        st.caption("📊 Barras mostrando el gasto promedio en cada rango de edad")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    # Gráfico 4: Pirámide Poblacional
-    with col4:
-        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-        st.subheader("👥 Pirámide Poblacional por Género")
-        
-        # Prepara datos para la pirámide poblacional
-        pop = df_filtrado.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
-        if "Hombre" not in pop: pop["Hombre"] = 0
-        if "Mujer" not in pop: pop["Mujer"] = 0
-        pop["Hombre"] = -pop["Hombre"]
-
-        # Crea gráfico de doble barra horizontal
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            y=pop.index,
-            x=pop["Hombre"],
-            name='Hombres',
-            orientation='h',
-            marker_color='#1f6feb'
-        ))
-        fig.add_trace(go.Bar(
-            y=pop.index,
-            x=pop["Mujer"],
-            name='Mujeres',
-            orientation='h',
-            marker_color='#ea60df'
-        ))
-
-        fig.update_layout(
-            title='Distribución de Clientes por Edad y Género',
-            plot_bgcolor='#161b22',
-            paper_bgcolor='#161b22',
-            font_color='#e6edf3',
-            title_font_size=16,
-            title_x=0.5,
-            barmode='relative',
-            bargap=0.0,
-            bargroupgap=0
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        st.caption("📊 Gráfico de doble barra mostrando distribución por género y edad")
-        st.markdown("</div>", unsafe_allow_html=True)
-
-    # GRÁFICO ADICIONAL: Distribución de Género
+Writing
+# Gráfico 2: Edad por Estado Civil
+with col2:
     st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-    st.subheader("👤 Distribución de Género")
-    
-    # Crea gráfico de pastel con agujero central
-    genero_counts = df_filtrado['Genero'].value_counts()
-    fig = px.pie(
-        values=genero_counts.values,
-        names=genero_counts.index,
-        title='Distribución de Clientes por Género',
-        color_discrete_sequence=['#1f6feb', '#ea60df'],
-        hole=0.4
+    st.subheader("💍 Edad por Estado Civil")
+
+    # Box plot interactivo
+    fig = px.box(
+        df_filtrado,
+        x="EstadoCivil",
+        y="Edad",
+        title="Distribución de Edades por Estado Civil",
+        color="EstadoCivil",
+        color_discrete_sequence=px.colors.qualitative.Set2
     )
     fig.update_layout(
         plot_bgcolor='#161b22',
         paper_bgcolor='#161b22',
         font_color='#e6edf3',
         title_font_size=16,
-        title_x=0.5
+        title_x=0.5,
+        showlegend=False
     )
     st.plotly_chart(fig, use_container_width=True)
+    st.caption("📦 Diagrama de cajas mostrando la distribución de edades por estado civil")
     st.markdown("</div>", unsafe_allow_html=True)
 
+# SEGUNDA FILA DE GRÁFICOS
+col3, col4 = st.columns(2)
 
-    # STORYTELLING FINAL
+# Gráfico 3: Gasto Promedio por Rango de Edad
+with col3:
+    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    st.subheader("💸 Gasto Promedio por Rango de Edad")
 
-    st.markdown("---")
-    st.markdown("<h3 style='color: #58a6ff;'>📈 Insights y Recomendaciones Estratégicas</h3>", unsafe_allow_html=True)
-    
-    # Columnas para insights
-    col_insights1, col_insights2 = st.columns(2)
-    
+    # Agrupa datos por rango de edad para calcular gasto promedio
+    gasto_por_rango = df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
+    gasto_por_rango['RangoEdad'] = gasto_por_rango['RangoEdad'].astype(str)
+
+    # Gráfico de barras con color progresivo
+    fig = px.bar(
+        gasto_por_rango,
+        x='RangoEdad',
+        y='GastoTotal',
+        title='Gasto Total Promedio por Rango de Edad',
+        color='GastoTotal',
+        color_continuous_scale='Blues'
+    )
+    fig.update_layout(
+        plot_bgcolor='#161b22',
+        paper_bgcolor='#161b22',
+        font_color='#e6edf3',
+        title_font_size=16,
+        title_x=0.5,
+        xaxis_tickangle=-45
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.caption("📊 Barras mostrando el gasto promedio en cada rango de edad")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# Gráfico 4: Pirámide Poblacional
+with col4:
+    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+    st.subheader("👥 Pirámide Poblacional por Género")
+
+    # Prepara datos para la pirámide poblacional
+    pop = df_filtrado.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
+    if "Hombre" not in pop: pop["Hombre"] = 0
+    if "Mujer" not in pop: pop["Mujer"] = 0
+    pop["Hombre"] = -pop["Hombre"]
+
+    # Crea gráfico de doble barra horizontal
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        y=pop.index,
+        x=pop["Hombre"],
+        name='Hombres',
+        orientation='h',
+        marker_color='#1f6feb'
+    ))
+    fig.add_trace(go.Bar(
+        y=pop.index,
+        x=pop["Mujer"],
+        name='Mujeres',
+        orientation='h',
+        marker_color='#ea60df'
+    ))
+
+    fig.update_layout(
+        title='Distribución de Clientes por Edad y Género',
+        plot_bgcolor='#161b22',
+        paper_bgcolor='#161b22',
+        font_color='#e6edf3',
+        title_font_size=16,
+        title_x=0.5,
+        barmode='relative',
+        bargap=0.0,
+        bargroupgap=0
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.caption("📊 Gráfico de doble barra mostrando distribución por género y edad")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# GRÁFICO ADICIONAL: Distribución de Género
+st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+st.subheader("👤 Distribución de Género")
+
+# Crea gráfico de pastel con agujero central
+genero_counts = df_filtrado['Genero'].value_counts()
+fig = px.pie(
+    values=genero_counts.values,
+    names=genero_counts.index,
+    title='Distribución de Clientes por Género',
+    color_discrete_sequence=['#1f6feb', '#ea60df'],
+    hole=0.4
+)
+fig.update_layout(
+    plot_bgcolor='#161b22',
+    paper_bgcolor='#161b22',
+    font_color='#e6edf3',
+    title_font_size=16,
+    title_x=0.5
+)
+st.plotly_chart(fig, use_container_width=True)
+st.markdown("</div>", unsafe_allow_html=True)
+
+# STORYTELLING FINAL
+st.markdown("---")
+st.markdown("<h3 style='color: #58a6ff;'>📈 Insights y Recomendaciones Estratégicas</h3>", unsafe_allow_html=True)
+
+# Columnas para insights
+col_insights1, col_insights2 = st.columns(2)
+
 # Insights izquierdos
 with col_insights1:
-    # Primero, calcula el rango de edad más común del dataframe filtrado
     if not df_filtrado.empty:
-        # .mode() encuentra el valor más frecuente. [0] selecciona el primero si hay empates.
         rango_mas_comun = df_filtrado['RangoEdad'].mode()[0]
     else:
-        # Asigna un valor por defecto si no hay datos
         rango_mas_comun = "N/A"
-with col_insights1:
-        st.markdown("""
-        <div class='insight-box'>
-            <h4>🎯 Público Objetivo Principal</h4>
-            <p>El segmento seleccionado tiene un <strong>promedio de edad de {:.1f} años</strong>, lo que indica una base de clientes madura y estable, ideal para estrategias de fidelización y valor a largo plazo.</p>
-        </div>
-        """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
 
-
-    # 💰 Potencial de Compra
-        st.markdown("""
-        <div class='insight-box'>
-            <h4>💰 Potencial de Compra</h4>
-            <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
-        </div>
-        """.format(
-            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
-            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
-        ), unsafe_allow_html=True)
-
-# Insights derechos (se renderizarán en la segunda columna)
-with col_insights2:
-    # 👥 Composición Demográfica
     st.markdown("""
-        <div class='insight-box'>
-            <h4>👥 Composición Demográfica</h4>
-           <p>El género dominante es <strong>{}</strong> con {:,} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
-        </div>
-        """.format(
-            df_filtrado['Genero'].mode()[0],
-            df_filtrado['Genero'].value_counts().iloc[0]
-        ), unsafe_allow_html=True)
-        
-    # 💍 Estado Civil y Compromiso
-    st.markdown("""
-        <div class='insight-box'>
-            <h4>💍 Estado Civil y Compromiso</h4>
-            <p>El estado civil más común es <strong>{}</strong>, sugiriendo que las campañas familiares o de pareja podrían ser particularmente efectivas para este segmento.</p>
-        </div>
-        """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
-# --- FIN DE LA ESTRUCTURA DE DOS COLUMNAS PARA INSIGHTS ---
-
-# Recomendaciones estratégicas (Esto seguirá ocupando el ancho completo)
-st.markdown("""
-    <div style='background-color: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
-        <h4>💡 Estrategia Recomendada</h4>
-        <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
-        <p>👉 <strong>Enfoque en Gasto:</strong> Dirige recursos hacia el grupo de edad con mayor poder adquisitivo identificado y adapta el contenido del mensaje para maximizar la conversión.</p>
+    <div class='insight-box'>
+        <h4>🎯 Público Objetivo Principal</h4>
+        <p>El segmento seleccionado tiene un <strong>promedio de edad de {:.1f} años</strong>, lo que indica una base de clientes madura y estable, ideal para estrategias de fidelización y valor a largo plazo.</p>
     </div>
-    """, unsafe_allow_html=True)
+    """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
 
-# FOOTER - Pie de página
+    st.markdown("""
+    <div class='insight-box'>
+        <h4>💰 Potencial de Compra</h4>
+        <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
+    </div>
+    """.format(
+        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
+        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
+    ), unsafe_allow_html=True)
+
+# Insights derechos
+with col_insights2:
+    st.markdown("""
+    <div class='insight-box'>
+        <h4>👥 Composición Demográfica</h4>
+        <p>El género dominante es <strong>{}</strong> con {:,} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
+    </div>
+    """.format(
+        df_filtrado['Genero'].mode()[0],
+        df_filtrado['Genero'].value_counts().iloc[0]
+    ), unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class='insight-box'>
+        <h4>💍 Estado Civil y Compromiso</h4>
+        <p>El estado civil más común es <strong>{}</strong>, sugiriendo que las campañas familiares o de pareja podrían ser particularmente efectivas para este segmento.</p>
+    </div>
+    """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
+
+# Recomendaciones estratégicas
+st.markdown("""
+<div style='background-color: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
+    <h4>💡 Estrategia Recomendada</h4>
+    <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
+    <p>👉 <strong>Enfoque en Gasto:</strong> Dirige recursos hacia el grupo de edad con mayor poder adquisitivo identificado y adapta el contenido del mensaje para maximizar la conversión.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# FOOTER
 st.markdown("---")
-st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
-
-
-
+st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis Grupo
 
 
