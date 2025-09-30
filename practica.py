@@ -31,108 +31,113 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
     html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;  # Fuente moderna y legible
+        font-family: 'Inter', sans-serif;
     }
-    
-    .main {
-        background-color: #ffffff;  # Fondo blanco principal
-        color: #130f40;  # Color de texto claro
-    }
-    
+
+    /* Fondo principal */
     .stApp {
-        background-color: #ffffff;  # Fondo de la aplicación
+        background-color: #ffffff; # fondo blanco puro
+        color: #1a1a1a;
     }
-    
+
+    /* Encabezados */
     h1, h2, h3, h4, h5, h6 {
-        color: #58a6ff !important;  # Color azul para encabezados
-        font-weight: 600;  # Peso de fuente seminegro
+        color: #0077cc !important;
+        font-weight: 600;
     }
-    
-    .stMetric {
-        background-color: #ffffff !important;  # Fondo oscuro para métricas
-        border-radius: 10px;  # Bordes redondeados
-        padding: 15px;  # Espaciado interno
-        border: 1px solid #30363d;  # Borde sutil
+
+    /* Métricas */
+    div[data-testid="stMetricValue"] {
+        background-color: #f0f8ff;
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #b3e0ff;
     }
-    
-    .stSelectbox, .stMultiSelect {
-        background-color: #ffffff !important;  # Fondo oscuro para selectores
-        border: 1px solid #30363d !important;  # Borde sutil
-        border-radius: 8px;  # Bordes redondeados
-        color: #e6edf3 !important;  # Color de texto claro
+
+    /* Selectores */
+    div[data-baseweb="select"] {
+        background-color: #f5fff5;
+        border: 1px solid #99e699;
+        border-radius: 8px;
+        color: #1a1a1a;
     }
-    
-    .stSlider {
-        background-color: #ffffff !important;  # Fondo oscuro para sliders
-        border-radius: 8px;  # Bordes redondeados
-        padding: 10px;  # Espaciado interno
+
+    /* Sliders */
+    div[data-testid="stSlider"] {
+        background-color: #f0f8ff;
+        border-radius: 8px;
+        padding: 10px;
     }
-    
-    .sidebar .sidebar-content {
-        background-color: #ffffff !important;  # Fondo oscuro para barra lateral
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #f5fff5 !important;
     }
-    
-    .block-container {
-        padding-top: 1rem;  # Espaciado superior
-        padding-bottom: 1rem;  # Espaciado inferior
+
+    /* Contenedor principal */
+    section.main > div {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
-    
+
+    /* Botones */
     .stButton > button {
-        background-color: #ffffff !important;  # Color azul para botones
-        color: white !important;  # Texto blanco en botones
-        border: none !important;  # Sin borde
-        border-radius: 6px !important;  # Bordes redondeados
-        padding: 0.5rem 1rem !important;  # Espaciado interno
-        font-weight: 500 !important;  # Peso de fuente medio
+        background-color: #33cc99 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 500 !important;
     }
-    
+
     .stButton > button:hover {
-        background-color: #ffffff !important;  # Color más claro al pasar el mouse
+        background-color: #29a87a !important;
     }
-    
+
+    /* Tarjetas personalizadas */
     .metric-card {
-        background: linear-gradient(135deg, #161b22, #0d1117);  # Gradiente para tarjetas de métricas
-        border-radius: 12px;  # Bordes redondeados
-        padding: 20px;  # Espaciado interno
-        border: 1px solid #30363d;  # Borde sutil
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);  # Sombra para profundidad
+        background: linear-gradient(135deg, #f0f8ff, #f5fff5);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #cce7ff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    
+
     .insight-box {
-        background-color: #ffffff;  # Fondo oscuro para cajas de insights
-        border-left: 4px solid #58a6ff;  # Borde izquierdo azul
-        padding: 15px;  # Espaciado interno
-        border-radius: 0 8px 8px 0;  # Bordes redondeados
-        margin: 10px 0;  # Margen vertical
+        background-color: #f0f8ff;
+        border-left: 4px solid #33cc99;
+        padding: 15px;
+        border-radius: 0 8px 8px 0;
+        margin: 10px 0;
     }
-    
+
     .chart-container {
-        background-color: #ffffff;  # Fondo oscuro para contenedores de gráficos
-        border-radius: 12px;  # Bordes redondeados
-        padding: 20px;  # Espaciado interno
-        border: 1px solid #30363d;  # Borde sutil
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);  # Sombra para profundidad
-        margin-bottom: 20px;  # Margen inferior
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid #e6e6e6;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
     }
-    
+
     .footer {
-        text-align: center;  # Texto centrado
-        padding: 20px;  # Espaciado interno
-        color: #8b949e;  # Color gris para el pie de página
-        font-size: 0.9em;  # Tamaño de fuente más pequeño
+        text-align: center;
+        padding: 20px;
+        color: #4d4d4d;
+        font-size: 0.9em;
     }
-    
+
     .participant-card {
-        background-color: #red;  # Fondo oscuro para tarjetas de participantes
-        border-radius: 10px;  # Bordes redondeados
-        padding: 15px;  # Espaciado interno
-        border: 1px solid #30363d;  # Borde sutil
-        margin: 5px 0;  # Margen vertical
+        background-color: #f5fff5;
+        border-radius: 10px;
+        padding: 15px;
+        border: 1px solid #99e699;
+        margin: 5px 0;
     }
-    
+
     .emoji-header {
-        font-size: 1.5em;  # Tamaño de fuente para emojis
-        margin-right: 10px;  # Margen derecho
+        font-size: 1.5em;
+        margin-right: 10px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -190,17 +195,17 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
+# ================================
 # CARGA Y PREPARACIÓN DE DATOS
-
+# ================================
 # Función para cargar y preparar los datos con cache
 @st.cache_data
-def cargar_datos(path):
+def cargar_datos(path: str):
     """
     Carga y prepara los datos para el dashboard
     
     Args:
-        path (str): Ruta del archivo Excel
+        path (str): Ruta del archivo CSV
     
     Returns:
         pandas.DataFrame: DataFrame con datos procesados
@@ -277,8 +282,9 @@ df_filtrado = df[
     df['Genero'].isin(genero_seleccionado)
 ]
 
+# ================================
 # MÉTRICAS PRINCIPALES
-
+# ================================
 # Título de las métricas clave
 st.markdown("### 📊 Métricas Clave del Segmento Seleccionado")
 
@@ -345,222 +351,209 @@ else:
         st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
         st.subheader("🎂 Distribución de Edades")
         
-      # Histograma interactivo con Plotly
-fig = px.histogram(
-    df_filtrado,
-    x="Edad",
-    nbins=10,
-    title="Distribución de Clientes por Edad",
-    color_discrete_sequence=['#58a6ff']
-)
-fig.update_traces(xbins=dict(size=10))
-fig.update_layout(
-    plot_bgcolor='#161b22',
-    paper_bgcolor='#161b22',
-    font_color='#e6edf3',
-    title_font_size=16,
-    title_x=0.5
-)  
-fig.update_traces(marker_line_width=1, marker_line_color="#0d1117")
-fig.update_xaxes(dtick=10)
-st.plotly_chart(fig, use_container_width=True)
-st.caption("📊 Histograma mostrando la frecuencia de clientes por edad")
-st.markdown("</div>", unsafe_allow_html=True)
+        # Histograma interactivo con Plotly
+        fig = px.histogram(
+            df_filtrado, 
+            x="Edad", 
+            nbins=10,
+            title="Distribución de Clientes por Edad",
+            color_discrete_sequence=['#58a6ff']
+        )
+        fig.update_traces(xbins=dict(size=10))
+        fig.update_layout(
+            plot_bgcolor='#161b22',
+            paper_bgcolor='#161b22',
+            font_color='#e6edf3',
+            title_font_size=16,
+            title_x=0.5
+        )   
+        fig.update_traces(marker_line_width=1, marker_line_color="#0d1117")
+        fig.update_xaxes(dtick=10)
+        st.plotly_chart(fig, use_container_width=True)
+        st.caption("📊 Histograma mostrando la frecuencia de clientes por edad")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-Writing
-# Gráfico 2: Edad por Estado Civil
-with col2:
+    # Gráfico 2: Edad por Estado Civil
+    with col2:
+        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+        st.subheader("💍 Edad por Estado Civil")
+        
+        # Box plot interactivo
+        fig = px.box(
+            df_filtrado, 
+            x="EstadoCivil", 
+            y="Edad",
+            title="Distribución de Edades por Estado Civil",
+            color="EstadoCivil",
+            color_discrete_sequence=px.colors.qualitative.Set2
+        )
+        fig.update_layout(
+            plot_bgcolor='#161b22',
+            paper_bgcolor='#161b22',
+            font_color='#e6edf3',
+            title_font_size=16,
+            title_x=0.5,
+            showlegend=False
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        st.caption("📦 Diagrama de cajas mostrando la distribución de edades por estado civil")
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    # SEGUNDA FILA DE GRÁFICOS
+    col3, col4 = st.columns(2)
+
+    # Gráfico 3: Gasto Promedio por Rango de Edad
+    with col3:
+        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+        st.subheader("💸 Gasto Promedio por Rango de Edad")
+        
+        # Agrupa datos por rango de edad para calcular gasto promedio
+        gasto_por_rango = df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
+        gasto_por_rango['RangoEdad'] = gasto_por_rango['RangoEdad'].astype(str)
+        
+        # Gráfico de barras con color progresivo
+        fig = px.bar(
+            gasto_por_rango,
+            x='RangoEdad',
+            y='GastoTotal',
+            title='Gasto Total Promedio por Rango de Edad',
+            color='GastoTotal',
+            color_continuous_scale='Blues'
+        )
+        fig.update_layout(
+            plot_bgcolor='#161b22',
+            paper_bgcolor='#161b22',
+            font_color='#e6edf3',
+            title_font_size=16,
+            title_x=0.5,
+            xaxis_tickangle=-45
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        st.caption("📊 Barras mostrando el gasto promedio en cada rango de edad")
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    # Gráfico 4: Pirámide Poblacional
+    with col4:
+        st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+        st.subheader("👥 Pirámide Poblacional por Género")
+        
+        # Prepara datos para la pirámide poblacional
+        pop = df_filtrado.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
+        if "Hombre" not in pop: pop["Hombre"] = 0
+        if "Mujer" not in pop: pop["Mujer"] = 0
+        pop["Hombre"] = -pop["Hombre"]
+
+        # Crea gráfico de doble barra horizontal
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            y=pop.index,
+            x=pop["Hombre"],
+            name='Hombres',
+            orientation='h',
+            marker_color='#1f6feb'
+        ))
+        fig.add_trace(go.Bar(
+            y=pop.index,
+            x=pop["Mujer"],
+            name='Mujeres',
+            orientation='h',
+            marker_color='#ea60df'
+        ))
+
+        fig.update_layout(
+            title='Distribución de Clientes por Edad y Género',
+            plot_bgcolor='#161b22',
+            paper_bgcolor='#161b22',
+            font_color='#e6edf3',
+            title_font_size=16,
+            title_x=0.5,
+            barmode='relative',
+            bargap=0.0,
+            bargroupgap=0
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        st.caption("📊 Gráfico de doble barra mostrando distribución por género y edad")
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    # GRÁFICO ADICIONAL: Distribución de Género
     st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-    st.subheader("💍 Edad por Estado Civil")
-
-    # Box plot interactivo
-    fig = px.box(
-        df_filtrado,
-        x="EstadoCivil",
-        y="Edad",
-        title="Distribución de Edades por Estado Civil",
-        color="EstadoCivil",
-        color_discrete_sequence=px.colors.qualitative.Set2
+    st.subheader("👤 Distribución de Género")
+    
+    # Crea gráfico de pastel con agujero central
+    genero_counts = df_filtrado['Genero'].value_counts()
+    fig = px.pie(
+        values=genero_counts.values,
+        names=genero_counts.index,
+        title='Distribución de Clientes por Género',
+        color_discrete_sequence=['#1f6feb', '#ea60df'],
+        hole=0.4
     )
     fig.update_layout(
         plot_bgcolor='#161b22',
         paper_bgcolor='#161b22',
         font_color='#e6edf3',
         title_font_size=16,
-        title_x=0.5,
-        showlegend=False
+        title_x=0.5
     )
     st.plotly_chart(fig, use_container_width=True)
-    st.caption("📦 Diagrama de cajas mostrando la distribución de edades por estado civil")
     st.markdown("</div>", unsafe_allow_html=True)
 
-# SEGUNDA FILA DE GRÁFICOS
-col3, col4 = st.columns(2)
+  
+    # STORYTELLING FINAL
+  
+    st.markdown("---")
+    st.markdown("<h3 style='color: #58a6ff;'>📈 Insights y Recomendaciones Estratégicas</h3>", unsafe_allow_html=True)
+    
+    # Columnas para insights
+    col_insights1, col_insights2 = st.columns(2)
+    
+    # Insights izquierdos
+    with col_insights1:
+        st.markdown("""
+        <div class='insight-box'>
+            <h4>🎯 Público Objetivo Principal</h4>
+            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{:.2f}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
+        </div>
+        """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class='insight-box'>
+            <h4>💰 Potencial de Compra</h4>
+            <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
+        </div>
+        """.format(
+            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
+            df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
+        ), unsafe_allow_html=True)
 
-# Gráfico 3: Gasto Promedio por Rango de Edad
-with col3:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-    st.subheader("💸 Gasto Promedio por Rango de Edad")
+    # Insights derechos
+    with col_insights2:
+        st.markdown("""
+        <div class='insight-box'>
+            <h4>👥 Composición Demográfica</h4>
+            <p>El género dominante es <strong>{}</strong> con {:,} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
+        </div>
+        """.format(
+            df_filtrado['Genero'].mode()[0],
+            df_filtrado['Genero'].value_counts().iloc[0]
+        ), unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class='insight-box'>
+            <h4>💍 Estado Civil y Compromiso</h4>
+            <p>El estado civil más común es <strong>{}</strong>, sugiriendo que las campañas familiares o de pareja podrían ser particularmente efectivas para este segmento.</p>
+        </div>
+        """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
 
-    # Agrupa datos por rango de edad para calcular gasto promedio
-    gasto_por_rango = df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().reset_index()
-    gasto_por_rango['RangoEdad'] = gasto_por_rango['RangoEdad'].astype(str)
+    # Recomendaciones estratégicas
+    st.markdown("""
+    <div style='background-color: #f0f8ff; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
+        <h4>💡 Estrategia Recomendada</h4>
+        <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
+        <p>👉 <strong>Enfoque en Gasto:</strong> Dirige recursos hacia el grupo de edad con mayor poder adquisitivo identificado y adapta el contenido del mensaje para maximizar la conversión.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    # Gráfico de barras con color progresivo
-    fig = px.bar(
-        gasto_por_rango,
-        x='RangoEdad',
-        y='GastoTotal',
-        title='Gasto Total Promedio por Rango de Edad',
-        color='GastoTotal',
-        color_continuous_scale='Blues'
-    )
-    fig.update_layout(
-        plot_bgcolor='#161b22',
-        paper_bgcolor='#161b22',
-        font_color='#e6edf3',
-        title_font_size=16,
-        title_x=0.5,
-        xaxis_tickangle=-45
-    )
-    st.plotly_chart(fig, use_container_width=True)
-    st.caption("📊 Barras mostrando el gasto promedio en cada rango de edad")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# Gráfico 4: Pirámide Poblacional
-with col4:
-    st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-    st.subheader("👥 Pirámide Poblacional por Género")
-
-    # Prepara datos para la pirámide poblacional
-    pop = df_filtrado.groupby(["Edad", "Genero"]).size().unstack(fill_value=0)
-    if "Hombre" not in pop: pop["Hombre"] = 0
-    if "Mujer" not in pop: pop["Mujer"] = 0
-    pop["Hombre"] = -pop["Hombre"]
-
-    # Crea gráfico de doble barra horizontal
-    fig = go.Figure()
-    fig.add_trace(go.Bar(
-        y=pop.index,
-        x=pop["Hombre"],
-        name='Hombres',
-        orientation='h',
-        marker_color='#1f6feb'
-    ))
-    fig.add_trace(go.Bar(
-        y=pop.index,
-        x=pop["Mujer"],
-        name='Mujeres',
-        orientation='h',
-        marker_color='#ea60df'
-    ))
-
-    fig.update_layout(
-        title='Distribución de Clientes por Edad y Género',
-        plot_bgcolor='#161b22',
-        paper_bgcolor='#161b22',
-        font_color='#e6edf3',
-        title_font_size=16,
-        title_x=0.5,
-        barmode='relative',
-        bargap=0.0,
-        bargroupgap=0
-    )
-    st.plotly_chart(fig, use_container_width=True)
-    st.caption("📊 Gráfico de doble barra mostrando distribución por género y edad")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# GRÁFICO ADICIONAL: Distribución de Género
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
-st.subheader("👤 Distribución de Género")
-
-# Crea gráfico de pastel con agujero central
-genero_counts = df_filtrado['Genero'].value_counts()
-fig = px.pie(
-    values=genero_counts.values,
-    names=genero_counts.index,
-    title='Distribución de Clientes por Género',
-    color_discrete_sequence=['#1f6feb', '#ea60df'],
-    hole=0.4
-)
-fig.update_layout(
-    plot_bgcolor='#161b22',
-    paper_bgcolor='#161b22',
-    font_color='#e6edf3',
-    title_font_size=16,
-    title_x=0.5
-)
-st.plotly_chart(fig, use_container_width=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
-# STORYTELLING FINAL
+# FOOTER - Pie de página
 st.markdown("---")
-st.markdown("<h3 style='color: #58a6ff;'>📈 Insights y Recomendaciones Estratégicas</h3>", unsafe_allow_html=True)
-
-# Columnas para insights
-col_insights1, col_insights2 = st.columns(2)
-
-# Insights izquierdos
-with col_insights1:
-    if not df_filtrado.empty:
-        rango_mas_comun = df_filtrado['RangoEdad'].mode()[0]
-    else:
-        rango_mas_comun = "N/A"
-
-    st.markdown("""
-    <div class='insight-box'>
-        <h4>🎯 Público Objetivo Principal</h4>
-        <p>El segmento seleccionado tiene un <strong>promedio de edad de {:.1f} años</strong>, lo que indica una base de clientes madura y estable, ideal para estrategias de fidelización y valor a largo plazo.</p>
-    </div>
-    """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class='insight-box'>
-        <h4>💰 Potencial de Compra</h4>
-        <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
-    </div>
-    """.format(
-        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().idxmax(),
-        df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
-    ), unsafe_allow_html=True)
-
-# Insights derechos
-with col_insights2:
-    st.markdown("""
-    <div class='insight-box'>
-        <h4>👥 Composición Demográfica</h4>
-        <p>El género dominante es <strong>{}</strong> con {:,} clientes, lo que indica que las estrategias de marketing deberían considerar preferencias específicas de este grupo.</p>
-    </div>
-    """.format(
-        df_filtrado['Genero'].mode()[0],
-        df_filtrado['Genero'].value_counts().iloc[0]
-    ), unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class='insight-box'>
-        <h4>💍 Estado Civil y Compromiso</h4>
-        <p>El estado civil más común es <strong>{}</strong>, sugiriendo que las campañas familiares o de pareja podrían ser particularmente efectivas para este segmento.</p>
-    </div>
-    """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
-
-# Recomendaciones estratégicas
-    st.markdown("""
-<div style='background-color: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
-    <h4>💡 Estrategia Recomendada</h4>
-    <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
-    <p>👉 <strong>Enfoque en Gasto:</strong> Dirige recursos hacia el grupo de edad con mayor poder adquisitivo identificado y adapta el contenido del mensaje para maximizar la conversión.</p>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown(
-    """
-    <div class='footer'>
-        📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis Grupo #1 | 🎯 Insights Estratégicos
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-
-
+st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
