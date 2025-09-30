@@ -345,27 +345,28 @@ else:
         st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
         st.subheader("🎂 Distribución de Edades")
         
-       # Histograma interactivo con Plotly
-           fig = px.histogram(
-           df_filtrado,
-           x="Edad",
-           nbins=10,
-           title="Distribución de Clientes por Edad",
-           color_discrete_sequence=['#58a6ff']
-       )
-       fig.update_traces(xbins=dict(size=10))
-       fig.update_layout(
-           plot_bgcolor='#161b22',
-           paper_bgcolor='#161b22',
-           font_color='#e6edf3',
-           title_font_size=16,
-           title_x=0.5
-       )  
-       fig.update_traces(marker_line_width=1, marker_line_color="#0d1117")
-       fig.update_xaxes(dtick=10)
-       st.plotly_chart(fig, use_container_width=True)
-       st.caption("📊 Histograma mostrando la frecuencia de clientes por edad")
-       st.markdown("</div>", unsafe_allow_html=True)
+      # Histograma interactivo con Plotly
+fig = px.histogram(
+    df_filtrado,
+    x="Edad",
+    nbins=10,
+    title="Distribución de Clientes por Edad",
+    color_discrete_sequence=['#58a6ff']
+)
+fig.update_traces(xbins=dict(size=10))
+fig.update_layout(
+    plot_bgcolor='#161b22',
+    paper_bgcolor='#161b22',
+    font_color='#e6edf3',
+    title_font_size=16,
+    title_x=0.5
+)  
+fig.update_traces(marker_line_width=1, marker_line_color="#0d1117")
+fig.update_xaxes(dtick=10)
+st.plotly_chart(fig, use_container_width=True)
+st.caption("📊 Histograma mostrando la frecuencia de clientes por edad")
+st.markdown("</div>", unsafe_allow_html=True)
+
 
     # Gráfico 2: Edad por Estado Civil
     with col2:
@@ -564,6 +565,7 @@ st.markdown("""
 # FOOTER - Pie de página
 st.markdown("---")
 st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
+
 
 
 
