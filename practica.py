@@ -552,7 +552,7 @@ with col_insights2:
 
 # Recomendaciones estratégicas (Esto seguirá ocupando el ancho completo)
 st.markdown("""
-    <div style='background-color: #161b22; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
+    <div style='background-color: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
         <h4>💡 Estrategia Recomendada</h4>
         <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
         <p>👉 <strong>Enfoque en Gasto:</strong> Dirige recursos hacia el grupo de edad con mayor poder adquisitivo identificado y adapta el contenido del mensaje para maximizar la conversión.</p>
