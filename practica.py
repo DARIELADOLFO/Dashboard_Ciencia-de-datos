@@ -510,15 +510,19 @@ with col_insights1:
         rango_mas_comun = "N/A"
 
     # Ahora, inserta el resultado correcto en el texto
-    st.markdown("""
-    <div class='insight-box'>
-        <h4>🎯 Público Objetivo Principal</h4>
-        <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes en el rango de <strong>{}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
-    </div>
-    """.format(rango_mas_comun), unsafe_allow_html=True)
+edad_min = int(df_filtrado['Edad'].min())
+edad_max = int(df_filtrado['Edad'].max())
+
+st.markdown(f"""
+<div class='insight-box'>
+    <h4>🎯 Público Objetivo Principal</h4>
+    <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre 
+    <strong>{edad_min} y {edad_max} años</strong>, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
+</div>
+""", unsafe_allow_html=True)
 
     # El resto de tu código para el segundo insight sigue aquí...
-    st.markdown("""
+st.markdown("""
     <div class='insight-box'>
         <h4>💰 Potencial de Compra</h4>
         <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
@@ -528,7 +532,7 @@ with col_insights1:
         df_filtrado.groupby("RangoEdad")["GastoTotal"].mean().max()
     ), unsafe_allow_html=True)
     
-    st.markdown("""
+st.markdown("""
         <div class='insight-box'>
             <h4>💰 Potencial de Compra</h4>
             <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
@@ -539,7 +543,7 @@ with col_insights1:
         ), unsafe_allow_html=True)
 
     # Insights derechos
-    with col_insights2:
+with col_insights2:
         st.markdown("""
         <div class='insight-box'>
             <h4>👥 Composición Demográfica</h4>
@@ -558,7 +562,7 @@ with col_insights1:
         """.format(df_filtrado['EstadoCivil'].mode()[0]), unsafe_allow_html=True)
 
     # Recomendaciones estratégicas
-    st.markdown("""
+st.markdown("""
     <div style='background-color: #161b22; padding: 20px; border-radius: 12px; border: 1px solid #30363d; margin-top: 20px;'>
         <h4>💡 Estrategia Recomendada</h4>
         <p>👉 <strong>Segmentación Dinámica:</strong> Aprovecha los filtros para crear campañas personalizadas basadas en edad, género y estado civil. Combina los insights para crear mensajes específicos que resuenen con cada subsegmento.</p>
