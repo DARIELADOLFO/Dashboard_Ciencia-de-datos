@@ -346,8 +346,7 @@ else:
         st.subheader("🎂 Distribución de Edades")
         
        # Histograma interactivo con Plotly
-    
-       fig = px.histogram(
+           fig = px.histogram(
            df_filtrado,
            x="Edad",
            nbins=10,
