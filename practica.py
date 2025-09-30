@@ -346,6 +346,7 @@ else:
         st.subheader("🎂 Distribución de Edades")
         
        # Histograma interactivo con Plotly
+    
        fig = px.histogram(
            df_filtrado,
            x="Edad",
@@ -564,6 +565,7 @@ st.markdown("""
 # FOOTER - Pie de página
 st.markdown("---")
 st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
+
 
 
 
