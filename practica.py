@@ -123,7 +123,7 @@ st.markdown("""
     }
     
     .participant-card {
-        background-color: #ffffff;  # Fondo oscuro para tarjetas de participantes
+        background-color: #red;  # Fondo oscuro para tarjetas de participantes
         border-radius: 10px;  # Bordes redondeados
         padding: 15px;  # Espaciado interno
         border: 1px solid #30363d;  # Borde sutil
