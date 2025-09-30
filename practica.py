@@ -512,7 +512,7 @@ with col_insights1:
         st.markdown("""
         <div class='insight-box'>
             <h4>🎯 Público Objetivo Principal</h4>
-            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{:.2f}</strong> años, lo que sugiere un enfoque en adultos de avanzada edad, con potencial de compra moderado a alto.</p>
+            <p>El segmento seleccionado tiene un <strong>promedio de edad de {:.1f} años</strong>, lo que indica una base de clientes madura y estable, ideal para estrategias de fidelización y valor a largo plazo.</p>
         </div>
         """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
 
@@ -562,3 +562,4 @@ st.markdown("""
 # FOOTER - Pie de página
 st.markdown("---")
 st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis  Grupo # 1| 🎯 Insights Estratégicos</div>", unsafe_allow_html=True)
+
