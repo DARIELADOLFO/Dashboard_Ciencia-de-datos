@@ -35,8 +35,8 @@ st.markdown("""
     }
     
     .main {
-        background-color: #ffffff;  # Fondo oscuro principal
-        color: #e6edf3;  # Color de texto claro
+        background-color: #ffffff;  # Fondo blanco principal
+        color: #130f40;  # Color de texto claro
     }
     
     .stApp {
@@ -509,20 +509,16 @@ with col_insights1:
         # Asigna un valor por defecto si no hay datos
         rango_mas_comun = "N/A"
 with col_insights1:
-    # 🎯 Público Objetivo Principal
-    edad_min = int(df_filtrado['Edad'].min())
-    edad_max = int(df_filtrado['Edad'].max())
+        st.markdown("""
+        <div class='insight-box'>
+            <h4>🎯 Público Objetivo Principal</h4>
+            <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre <strong>{}</strong> años, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
+        </div>
+        """.format(df_filtrado['Edad'].mean()), unsafe_allow_html=True)
 
-    st.markdown(f"""
-    <div class='insight-box'>
-        <h4>🎯 Público Objetivo Principal</h4>
-        <p>La distribución de edades revela que el segmento seleccionado está compuesto principalmente por clientes entre 
-        <strong>{edad_min} y {edad_max} años</strong>, lo que sugiere un enfoque en adultos jóvenes a medianos con potencial de compra moderado a alto.</p>
-    </div>
-    """, unsafe_allow_html=True)
 
     # 💰 Potencial de Compra
-    st.markdown("""
+        st.markdown("""
         <div class='insight-box'>
             <h4>💰 Potencial de Compra</h4>
             <p>El grupo de edad entre <strong>{}</strong> registra el mayor gasto promedio de ${:.2f}, indicando que este segmento es el más valioso para campañas de alto valor.</p>
