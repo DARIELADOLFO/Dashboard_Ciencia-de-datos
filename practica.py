@@ -552,9 +552,15 @@ with col_insights2:
 </div>
 """, unsafe_allow_html=True)
 
-# FOOTER
-    st.markdown("---")
-    st.markdown("<div class='footer'>📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis Grupo
+st.markdown(
+    """
+    <div class='footer'>
+        📊 Dashboard de Marketing | Desarrollado por Equipo de Análisis Grupo #1 | 🎯 Insights Estratégicos
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 
 
